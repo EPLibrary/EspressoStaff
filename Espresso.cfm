@@ -7,6 +7,8 @@
 <cfset ArrayAppend(adminButtons, adminButton)>
 <cfinclude template="/AppsRoot/Includes/IntraHeader.cfm">
 
+<link rel="stylesheet" type="text/css" href="espresso.css" />
+
 <!--- <cfset oldOrderDate = dateadd('d', 30, now())>
 <cfif '#DateFormat(date1, "yyyy-mmm-dd")#' EQ '#DateFormat(PurContract.ExpiryDate, "yyyy-mmm-dd")#'>
 	
@@ -22,7 +24,7 @@
 
 <table class="altColors padded">
 
-<tr><td colspan="8" style="background-color:#FFF;"><div style="font-size:24px; font-weight:bold; margin:6px 0 2px 0;">Open Orders</div></td></tr>
+<tr><td colspan="8" style="background-color:transparent;"><div style="font-size:24px; font-weight:bold; margin:6px 0 2px 0;">Open Orders</div></td></tr>
 <cfinclude template="EspressoTable.cfm">
 
 <!--- Query to select completed and cancelled data from database--->
@@ -32,7 +34,7 @@
   order by CreatedWhen desc
 </cfquery>
 
-<tr><td colspan="8" style="background-color:#FFF;"><div style="font-size:24px; font-weight:bold; margin:20px 0 2px 0;">Completed Orders</div></td></tr>
+<tr><td colspan="8" style="background-color:transparent;"><div style="font-size:24px; font-weight:bold; margin:20px 0 2px 0;">Completed Orders</div></td></tr>
 <cfinclude template="EspressoTable.cfm">
 
 </table>

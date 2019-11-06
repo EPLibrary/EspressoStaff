@@ -1,0 +1,44 @@
+/* Base status class */
+.status {
+	color: inherit;
+	font-weight:bold;
+}
+.received {color:#009900}
+.onHold {color:#9933CC;}
+.inProgress {color:#3399CC;}
+.proofCompleted {color:#999900;}
+.proofApproved {color:#666699;}
+.ready {color:#FF4500;}
+.readyZero {color:#CC9933;}
+.completed {color:#CC3333;}
+
+
+#detail {
+	float:left;
+	margin-right:40px;
+	margin-bottom:20px;
+	width:550px;
+}
+
+#changeStatus {
+	float:left;
+	margin-bottom:20px;
+}
+
+#status_table {
+	width:470px;
+	float: right;
+	border:1px solid rgba(127,127,127,0.5);
+	margin-right:120px;
+}
+
+#status_table td {
+	border:1px solid rgba(127,127,127,0.5);
+}
+
+
+ul {
+	padding-left:25px;
+	padding-top:2px;
+	margin-top:0;
+}

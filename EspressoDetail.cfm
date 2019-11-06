@@ -5,26 +5,7 @@
 <cfset pagetitle = "Espresso - Request Details">
 <cfinclude template="/AppsRoot/Includes/IntraHeader.cfm">
 
-<style type="text/css">
-#detail {
-	float:left;margin-right:40px;margin-bottom:20px;width:550px;
-}
-#changeStatus {
-	float:left;margin-bottom:20px;
-}
-#status_table {
-	width:470px; float: right; background-color: #ffffff; border:1px solid #3D2E00; margin-right:120px;
-}
-.st_td {
-	font-size:18px;background-color:#A5A567;padding: 5px;
-}
-.st_data {
-	padding:5px;
-}
-ul {
-	padding-left:25px;padding-top:2px;margin-top:0;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="espresso.css" />
 
 <cfquery name="EspressoQuery" datasource="SecureSource" dbtype="ODBC">
  Select * from vsd.vsd.Espresso
@@ -88,7 +69,7 @@ ul {
 <tr><td colspan="2">
 		<table width="100%" cellspacing="0">
 		<tr valign="top">
-			<td style="background-color:##E6FAFF;">
+			<td class="grayBox">
 			<cfif FileExists("D:\inetpub\www2.epl.ca\Espresso\Files\#EspressoQuery.BlockFileTemp#.pdf")>
 				<cfpdf action="getinfo" name="myDog" source="D:\inetpub\www2.epl.ca\Espresso\Files\#EspressoQuery.BlockFileTemp#.pdf" />
 				<cfset TheBlockPageSizeHeight = myDog['PageSizes'][1]['height']>
@@ -105,7 +86,7 @@ ul {
 			<cfelse>
 				<span class="error">Warning:<br /><cfoutput>#EspressoQuery.BlockFileTemp#</cfoutput>.pdf is missing.</span>
 			</cfif>
-			</td><td style="background-color:##E6FAFF;">
+			</td><td class="grayBox">
 			<cfif FileExists("D:\inetpub\www2.epl.ca\Espresso\Files\#EspressoQuery.CoverFileTemp#.pdf")>
 				<cfpdf action="getinfo" name="myDog" source="D:\inetpub\www2.epl.ca\Espresso\Files\#EspressoQuery.CoverFileTemp#.pdf" />
 				<cfset TheBlockPageSizeHeight = myDog['PageSizes'][1]['height']>
@@ -241,50 +222,52 @@ ul {
 </cfoutput>
 
 <!--- Table to display status meaning to let staff know what they are supposed to do in every steps.--->
-<table id="status_table" border="1">
+<table id="status_table" class="padded">
+	<thead>
+		<tr class="heading">
+			<th>Status</th>
+			<th>Meaning</th>
+		</tr>
+	</thead>
 	<tr>
-		<th class="st_td">Status</th>
-		<th class="st_td">Meaning</th>
-	</tr>
-	<tr>
-		<td class="st_data" style="color:#009900; font-weight:bold;">Received</td>
-		<td class="st_data">Staff need to take a look at the request because
+		<td class="status received">Received</td>
+		<td>Staff need to take a look at the request because
 		<ul><li>a new order has been submitted by a customer OR</li>
 		<li>a customer has edited their existing order</li></ul>Customer can edit their order while it has Received status</td>
 	</tr>
 	<tr>
-		<td class="st_data" style="color:#9933CC; font-weight:bold;">On Hold</td>
-		<td class="st_data"><ul><li>A customer has been notified that they must edit their content and resubmit</li>
+		<td class="status onHold">On Hold</td>
+		<td><ul><li>A customer has been notified that they must edit their content and resubmit</li>
 		<li>A customer has requested time to edit their content and resubmit(e.g..after reviewing a print proof)</li>
 		<li>A customer is currently editing their order</li></ul>Customer can edit their order while it has On Hold status</td>
 	</tr>
 	<tr>
-		<td class="st_data" style="color:#3399CC; font-weight:bold;">In Progress</td>
-		<td class="st_data">The print run is in the progress of being printed<p style="margin-bottom:-2px;">Customer cannot edit their order while it has In Progress status</p></td>
+		<td class="status inProgress">In Progress</td>
+		<td>The print run is in the progress of being printed<p style="margin-bottom:-2px;">Customer cannot edit their order while it has In Progress status</p></td>
 	</tr>
 	<tr>
-		<td class="st_data" style="color:#999900; font-weight:bold;">Proof Completed</td>
-		<td class="st_data">A proof copy of the order has been printed and is waiting to be reviewed by the customer<p style="margin-bottom:-2px;">Customer cannot edit their order while it has Proof Completed status</p></td>
+		<td class="status proofCompleted">Proof Completed</td>
+		<td>A proof copy of the order has been printed and is waiting to be reviewed by the customer<p style="margin-bottom:-2px;">Customer cannot edit their order while it has Proof Completed status</p></td>
 	</tr>
 	<tr>
-		<td class="st_data" style="color:#666699; font-weight:bold;">Proof Approved</td>
-		<td class="st_data">The proof copy has been approved in person by the customer and their full order is ready to print<p style="margin-bottom:-2px;">Customer cannot edit their order while it has Proof Approved status</p></td>
+		<td class="status proofApproved">Proof Approved</td>
+		<td>The proof copy has been approved in person by the customer and their full order is ready to print<p style="margin-bottom:-2px;">Customer cannot edit their order while it has Proof Approved status</p></td>
 	</tr>
 	<tr>
-		<td class="st_data" style="color:#CC9933; font-weight:bold;">Ready</td>
-		<td class="st_data">The full run of prints is completed and ready to be picked up but email has not been sent yet.<p style="margin-bottom:-2px;">Customer cannot edit their order while it has Ready status</p></td>
+		<td class="status readyZero">Ready</td>
+		<td>The full run of prints is completed and ready to be picked up but email has not been sent yet.<p style="margin-bottom:-2px;">Customer cannot edit their order while it has Ready status</p></td>
 	</tr>
 	<tr>
-		<td class="st_data" style="color:#FF4500; font-weight:bold;">Ready</td>
-		<td class="st_data">Print is ready and already emailed to customer for pickup<p style="margin-bottom:-2px;">Customer cannot edit their order while it has Ready status</p></td>
+		<td class="status ready">Ready</td>
+		<td>Print is ready and already emailed to customer for pickup<p style="margin-bottom:-2px;">Customer cannot edit their order while it has Ready status</p></td>
 	</tr>
 	<tr>
-		<td class="st_data" style="color:#CC3333; font-weight:bold;">Completed</td>
-		<td class="st_data">The customer has paid for and taken home their order<p style="margin-bottom:-2px;">Customer cannot edit their order while it has Completed status</p></td>
+		<td class="status completed">Completed</td>
+		<td>The customer has paid for and taken home their order<p style="margin-bottom:-2px;">Customer cannot edit their order while it has Completed status</p></td>
 	</tr>
 	<tr>
-		<td class="st_data" style="color:#000000; font-weight:bold;">Canceled</td>
-		<td class="st_data">Customer Cancel the book printing</td>
+		<td class="status">Canceled</td>
+		<td>Customer cancelled the book printing</td>
 	</tr>
 </table>
 

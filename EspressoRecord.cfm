@@ -34,7 +34,7 @@
 
 <div id="BackLink"><a href="https://apps.epl.ca/espresso/">Back to Admin View</a></div>
 <cfoutput>
-		<div id="filterForm" style="margin:0 auto;border:1px solid ##AAA;padding:0 10px 0px 10px;float:left;background-color:##EEE;margin-top:10px;">
+		<div id="filterForm" class="grayBox" style="margin:0 auto;padding:0 10px 0px 10px;float:left;margin-top:10px;">
 			<form name="filters" id="filters" action="#GetFileFromPath(GetCurrentTemplatePath())#" method="get">
 				<h3 style="margin:10px 0px 0px 0px;">Search Filter <span class="tinytip" style="margin-bottom:10px;padding-left:10px;">Use the filters below to limit results.</span></h3>
 				<div id="toprow" style="margin:10px;">
