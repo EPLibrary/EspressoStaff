@@ -9,12 +9,6 @@
 
 <link rel="stylesheet" type="text/css" href="espresso.css" />
 
-<!--- <cfset oldOrderDate = dateadd('d', 30, now())>
-<cfif '#DateFormat(date1, "yyyy-mmm-dd")#' EQ '#DateFormat(PurContract.ExpiryDate, "yyyy-mmm-dd")#'>
-	
-</cfif> --->
-
-
 <!--- Query to select open data from database--->
 <cfquery name="EspressoQuery" datasource="SecureSource" dbtype="ODBC">
  Select * from vsd.vsd.Espresso

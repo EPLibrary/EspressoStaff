@@ -24,14 +24,15 @@
 <cfoutput>
 <!--- <table border="0" width="1000"><tr valign="top"><td width="600"> --->
 <!--- Setting different colors for different status--->
-	<cfset TheStatusColour = "000000">
-	<cfif EspressoQuery.TheStatus eq "Received"><cfset TheStatusColour = "009900"></cfif>
-	<cfif EspressoQuery.TheStatus eq "On Hold"><cfset TheStatusColour = "9933CC"></cfif>
-	<cfif EspressoQuery.TheStatus eq "Proof Completed"><cfset TheStatusColour = "999900"></cfif>
-	<cfif EspressoQuery.TheStatus eq "Proof Approved"><cfset TheStatusColour = "666699"></cfif>
-	<cfif EspressoQuery.TheStatus eq "In Progress"><cfset TheStatusColour = "3399CC"></cfif>
-	<cfif EspressoQuery.TheStatus eq "Ready"><cfif EspressoMailQuery.RecordCount gt 0><cfset TheStatusColour = "FF4500"><cfelse><cfset TheStatusColour = "CC9933"></cfif></cfif>
-	<cfif EspressoQuery.TheStatus eq "Completed"><cfset TheStatusColour = "CC3333"></cfif>
+	<cfset statusClass = "">
+	<cfif EspressoQuery.TheStatus eq "Received"><cfset statusClass = "received"></cfif>
+	<cfif EspressoQuery.TheStatus eq "On Hold"><cfset statusClass = "onHold"></cfif>
+	<cfif EspressoQuery.TheStatus eq "In Progress"><cfset statusClass = "inProgress"></cfif>
+	<cfif EspressoQuery.TheStatus eq "Proof Completed"><cfset statusClass = "proofCompleted"></cfif>
+	<cfif EspressoQuery.TheStatus eq "Proof Approved"><cfset statusClass = "proofApproved"></cfif>
+	<cfif EspressoQuery.TheStatus eq "Ready"><cfif #EspressoMailQuery.RecordCount# gt 0><cfset statusClass = "ready"><cfelse><cfset statusClass = "readyZero"></cfif></cfif>
+	<cfif EspressoQuery.TheStatus eq "Completed"><cfset statusClass = "completed"></cfif>
+
 	<!--- Displaying the details of an order with status and extra field staff comment along with file name.--->
 	<br />
 	<table id="detail" cellpadding="3">
@@ -43,11 +44,11 @@
 		<tr valign="top"><td><b>Cover Finish:</b></td><td>#EspressoQuery.CoverFinish#</td></tr>
 		<tr valign="top"><td><b>Paper Colour:</b></td><td>#EspressoQuery.PaperColour#</td></tr>
 		<tr valign="top"><td><b>## of Prints:</b></td><td>#EspressoQuery.NumberOfPrints#</td></tr>
-		<tr valign="top"><td><b>## of Pages:<br /><font style="font-size:12px; color:##000;">(Required for reprint invoices)</font></b></td><td>#EspressoQuery.NumberOfPages#</td></tr>
+		<tr valign="top"><td><b>## of Pages:<br /><span class="tinyTip">(Required for reprint invoices)</span></b></td><td>#EspressoQuery.NumberOfPages#</td></tr>
 		<tr valign="top"><td><b>## of Cover:</b></td><td>#EspressoQuery.NumberOfCover#</td></tr>
 		<tr valign="top"><td><b>Comments:</b></td><td>#EspressoQuery.Comments#</td></tr>
 		<tr valign="top"><td><b>Staff Comments:</b></td><td>#EspressoQuery.staff_comment#</td></tr>
-		<tr valign="top"><td><b>Status:</b></td><td><b style="color:###TheStatusColour#">#EspressoQuery.TheStatus#</b></td></tr>
+		<tr valign="top"><td><b>Status:</b></td><td class="status #statusClass#">#EspressoQuery.TheStatus#</td></tr>
 		<tr valign="top"><td><b>Received:</b></td><td>#DateFormat(EspressoQuery.CreatedWhen,"mmm dd, yyyy")#</td></tr>
 		<tr valign="top"><td><b>Reprint:</b></td><td><cfif #EspressoQuery.reprint# EQ 0>
 					No
@@ -109,9 +110,6 @@
 </cfif>
 </table>
 
-<!----cfdump var="#myDog#"---->
-
-<!--- </td><td width="100"> --->
 <!--- Dropdown list to select the status of order with change button to change the status of the order.--->
 	<div id="changeStatus">
 		<form action="EspressoDetailAction.cfm" method="post">
@@ -199,7 +197,6 @@
   			order by CreatedWhen
 		</cfquery>
 		<cfif EspressoMailQuery.RecordCount gt 0>
-		<!--- <cfset TheStatusColour = "##8B008B"> --->
 			<table style="font-size:12px;">
 				<cfloop query="EspressoMailQuery">
 					<tr><td>Already sent: #DateFormat(EspressoMailQuery.CreatedWhen)# #TimeFormat(EspressoMailQuery.CreatedWhen)#</td><td> by #EspressoMailQuery.CreatedBy#</td></tr>
@@ -272,7 +269,7 @@
 </table>
 
 <!--- <input type="submit" id="btnOpenDialog" value="Change" />
-			<div id="dialog-confirm"></div> --->
+			<div id="dialog-confirm"></div>
 
  <script>
 
@@ -318,5 +315,5 @@
 //     }
 // }
 </script>
-
+ --->
 <cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
