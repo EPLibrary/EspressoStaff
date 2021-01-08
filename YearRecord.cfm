@@ -1,5 +1,5 @@
-<cfset pagetitle = "Espresso">
-<cfinclude template="/AppsRoot/Includes/IntraHeader.cfm">
+<cfset app.title="Espresso">
+<cfinclude template="#app.includes#/appsHeader.cfm">
 
 <!--- <cfset oldOrderDate = dateadd('d', 30, now())>
 <cfif '#DateFormat(date1, "yyyy-mmm-dd")#' EQ '#DateFormat(PurContract.ExpiryDate, "yyyy-mmm-dd")#'>
@@ -51,4 +51,4 @@
 </cfloop>
 </table>
 </cfoutput>
-<cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
+<cfinclude template="#app.includes#/appsFooter.cfm">

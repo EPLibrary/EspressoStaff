@@ -1,8 +1,7 @@
 <!--- Sends email when the proof copy is completed to get approve by customers to print the final copy--->
-<cfset parentpage = "Espresso">
-<cfset parentlink = "Espresso.cfm">
-<cfset pagetitle = "Espresso - Request Details - Proof Copy Completed email">
-<cfinclude template="/AppsRoot/Includes/IntraHeader.cfm">
+<cfset app.addParent("Espresso", "Espresso.cfm") />
+<cfset app.title="Espresso - Request Details - Proof Copy Completed email">
+<cfinclude template="#app.includes#/appsHeader.cfm">
 
 <cfquery name="EspressoQuery" datasource="SecureSource" dbtype="ODBC">
  	Select * from vsd.vsd.Espresso
@@ -10,10 +9,10 @@
 </cfquery>
 
 <cfquery name="InsertMailQuery" datasource="ReadWriteSource" dbtype="ODBC">
- Insert into vsd.vsd.EspressoMails values (#EspressoQuery.EspID#,'ProofCompleted',NULL,'#YouKnowIAm#',GetDate())
+ Insert into vsd.vsd.EspressoMails values (#EspressoQuery.EspID#,'ProofCompleted',NULL,'#session.identity#',GetDate())
 </cfquery>
  <!--- Sending email to customer asking to come to makerspace to take a look and give approval for final copy--->
-<cfmail from="noReply@epl.ca" to="#EspressoQuery.TheEmail#,Makerspace@epl.ca" bcc="VFlores@epl.ca" subject="Book Proof Complete at EPL Makerspace" type="html">
+<cfmail from="noReply@epl.ca" to="#EspressoQuery.TheEmail#,Makerspace@epl.ca" bcc="weblogs@epl.ca" subject="Book Proof Complete at EPL Makerspace" type="html">
 	<cfinclude template="EspressoEmailHeader.cfm">
 	<p>Dear #EspressoQuery.TheName#,</p>
 	<p>The proof copy of your book has been printed. Come on down to the Makerspace and take a look. Once you approve the proof copy we will print the rest of your order.</p>
@@ -29,4 +28,4 @@
 </cfmail>
  
 <cflocation url="EspressoDetail.cfm?id=#EspressoQuery.EspID#" addtoken="no">
-<cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
+<cfinclude template="#app.includes#/appsFooter.cfm">

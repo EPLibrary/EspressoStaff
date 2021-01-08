@@ -1,9 +1,8 @@
 <!--- Sends email to the customer when the link is clicked and also insert the records of email everytime it is sent to the customers--->
 
-<cfset parentpage = "Espresso">
-<cfset parentlink = "Espresso.cfm">
-<cfset pagetitle = "Espresso - Request Details - Send On Hold email">
-<cfinclude template="/AppsRoot/Includes/IntraHeader.cfm">
+<cfset app.addParent("Espresso", "Espresso.cfm") />
+<cfset app.title="Espresso - Request Details - Send On Hold email">
+<cfinclude template="#app.includes#/appsHeader.cfm">
 
 <cfquery name="EspressoQuery" datasource="SecureSource" dbtype="ODBC">
  	Select * from vsd.vsd.Espresso
@@ -11,11 +10,11 @@
 </cfquery>
 <!--- Insert everytime the email is sent to the customers wit mail type (status), mail body , created by and created when--->
 <cfquery name="InsertMailQuery" datasource="ReadWriteSource" dbtype="ODBC">
- Insert into vsd.vsd.EspressoMails values (#EspressoQuery.EspID#,'OnHold','#form.TheMessage#','#YouKnowIAm#',GetDate())
+ Insert into vsd.vsd.EspressoMails values (#EspressoQuery.EspID#,'OnHold','#form.TheMessage#','#session.identity#',GetDate())
 </cfquery>
  
  <!--- Sending email and the following is the contents of email --->
-<cfmail from="noReply@epl.ca" to="#EspressoQuery.TheEmail#,Makerspace@epl.ca" bcc="VFlores@epl.ca" subject="Espresso Book Machine Order Review" type="html">
+<cfmail from="noReply@epl.ca" to="#EspressoQuery.TheEmail#,Makerspace@epl.ca" bcc="weblogs@epl.ca" subject="Espresso Book Machine Order Review" type="html">
 	<cfinclude template="EspressoEmailHeader.cfm">
 	<p>Dear #EspressoQuery.TheName#,</p>
 	<p>#Replace(form.TheMessage,chr(13),"<br />","All")#</p>
@@ -25,4 +24,4 @@
 </cfmail>
 
 <cflocation url="EspressoDetail.cfm?id=#EspressoQuery.EspID#" addtoken="no">
-<cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
+<cfinclude template="#app.includes#/appsFooter.cfm">

@@ -1,4 +1,4 @@
-<cfset pagetitle = "Espresso - Invoice">
+<cfset app.title="Espresso - Invoice">
 <link rel="stylesheet" type="text/css" ref="print.css" />
 <style type="text/css">
 
@@ -10,7 +10,7 @@
 
 </style>
 <div id="page_image">
-    <img src="..\Resources\EPLLogo.png" />
+    <img src="/images/EPLLogo.png" />
 </div>
 <br><br><br>
 <!--- <h2 >Espresso - Invoice</h2> --->

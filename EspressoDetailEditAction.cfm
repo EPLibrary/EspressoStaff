@@ -1,16 +1,15 @@
 <!--- This file updates the database with the edited fileds done in edit page.--->
-<cfset parentpage = "Espresso">
-<cfset parentlink = "Espresso.cfm">
-<cfset pagetitle = "Espresso - Request Details - Edit">
-<cfinclude template="/AppsRoot/Includes/IntraHeader.cfm">
+<cfset app.addParent("Espresso", "Espresso.cfm") />
+<cfset app.title="Espresso - Request Details - Edit">
+<cfinclude template="#app.includes#/appsHeader.cfm">
 
 <cfquery name="EspressoQuery" datasource="SecureSource" dbtype="ODBC">
     Select * from vsd.vsd.Espresso
     where EspID = #form.TheEspID#
 </cfquery>
 
-<cfif YouKnowIAm eq "VFloresXXX">
-	<cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
+<cfif session.identity eq "VFloresXXX">
+	<cfinclude template="#app.includes#/appsFooter.cfm">
 	<cfabort>
 </cfif>
 <!--- Setting the variables--->
@@ -78,7 +77,7 @@
             <p style="margin-left:400px;margin-top:-20px;"><a href="EspressoDetail.cfm?id=#form.TheEspID#">Back to Request Detail</a></p>
         </cfoutput>
         <cffile action="delete" file="D:\inetpub\www2.epl.ca\Espresso\Files\#RandomRandBlock#.pdf">
-        <cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
+        <cfinclude template="#app.includes#/appsFooter.cfm">
         <cfabort>
     <cfelse>
         <cfset BlockFileOK = "Update">
@@ -114,7 +113,7 @@
         <p style="margin-left:400px;margin-top:-20px;"><a href="EspressoDetail.cfm?id=#form.TheEspID#">Back to Request Detail</a></p>
     </cfoutput>
     <cffile action="delete" file="D:\inetpub\www2.epl.ca\Espresso\Files\#RandomRandCover#.pdf">
-    <cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
+    <cfinclude template="#app.includes#/appsFooter.cfm">
     <cfabort>
 </cfif> --->
 <!--- Updating the database after update is done by staff in edit page--->

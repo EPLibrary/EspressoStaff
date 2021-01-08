@@ -1,8 +1,7 @@
 <!--- Sends email to customer when order is complete and ready for pickup with an invoice--->
-<cfset parentpage = "Espresso">
-<cfset parentlink = "Espresso.cfm">
-<cfset pagetitle = "Espresso - Request Details - Ready For Pick Up email">
-<cfinclude template="/AppsRoot/Includes/IntraHeader.cfm">
+<cfset app.addParent("Espresso", "Espresso.cfm") />
+<cfset app.title="Espresso - Request Details - Ready For Pick Up email">
+<cfinclude template="#app.includes#/appsHeader.cfm">
 
 <cfquery name="EspressoQuery" datasource="SecureSource" dbtype="ODBC">
  	Select * from vsd.vsd.Espresso
@@ -50,12 +49,12 @@
 <cfset InvoiceDiscountedTotal = InvoiceDiscount + InvoiceDiscountedLineTax>
 
 <cfquery name="InsertMailQuery" datasource="ReadWriteSource" dbtype="ODBC">
- Insert into vsd.vsd.EspressoMails values (#EspressoQuery.EspID#,'ReadyForPickUp',NULL,'#YouKnowIAm#',GetDate())
+ Insert into vsd.vsd.EspressoMails values (#EspressoQuery.EspID#,'ReadyForPickUp',NULL,'#session.identity#',GetDate())
 </cfquery>
 
 <!--- Sending email to customer to pick up the order if it not reprint order--->
 <cfif #EspressoQuery.reprint# EQ 0>
-<cfmail from="noReply@epl.ca" to="#EspressoQuery.TheEmail#,Makerspace@epl.ca" bcc="VFlores@epl.ca" subject="Your Book Order is Ready for Pick Up!" type="html">
+<cfmail from="noReply@epl.ca" to="#EspressoQuery.TheEmail#,Makerspace@epl.ca" bcc="weblogs@epl.ca" subject="Your Book Order is Ready for Pick Up!" type="html">
 
 	<cfinclude template="EspressoEmailHeader.cfm">
 
@@ -74,7 +73,7 @@
 </cfmail>
 <!--- Sending email to customer to pick up the order if it reprint order--->
 <cfelse>
-	<cfmail from="noReply@epl.ca" to="#EspressoQuery.TheEmail#,Makerspace@epl.ca" bcc="VFlores@epl.ca" subject="Your Book Order is Ready for Pick Up!" type="html">
+	<cfmail from="noReply@epl.ca" to="#EspressoQuery.TheEmail#,Makerspace@epl.ca" bcc="weblogs@epl.ca" subject="Your Book Order is Ready for Pick Up!" type="html">
 
 	<cfinclude template="EspressoEmailHeader.cfm">
 
@@ -95,4 +94,4 @@
 <cflocation url="EspressoDetail.cfm?id=#url.id#" addtoken="no">
 
 
-<cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
+<cfinclude template="#app.includes#/appsFooter.cfm">

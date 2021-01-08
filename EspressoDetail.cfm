@@ -1,9 +1,8 @@
 <!--- This page includes the detils of every order. This has also got the feature of editing some of the fields and giving staff comments as extra field where staff can put their comments to let other staff know if there is any information to share. Staff can also edit the file submitted by customers if required. After every step order status is changed which can be done through this page. There is a dropdown list of status and change button to change the status of an order. There is also a link for invoices. --->
 
-<cfset parentpage = "Espresso">
-<cfset parentlink = "Espresso.cfm">
-<cfset pagetitle = "Espresso - Request Details">
-<cfinclude template="/AppsRoot/Includes/IntraHeader.cfm">
+<cfset app.addParent("Espresso", "Espresso.cfm") />
+<cfset app.title="Espresso - Request Details">
+<cfinclude template="#app.includes#/appsHeader.cfm">
 
 <link rel="stylesheet" type="text/css" href="espresso.css" />
 
@@ -316,4 +315,4 @@
 // }
 </script>
  --->
-<cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
+<cfinclude template="#app.includes#/appsFooter.cfm">

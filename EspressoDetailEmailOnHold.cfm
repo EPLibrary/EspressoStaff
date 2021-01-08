@@ -1,8 +1,7 @@
 <!--- Sends email to customer and asked to edit the contents. Menatime, the status is put on hold till the customer edit and submit the order again.--->
-<cfset parentpage = "Espresso">
-<cfset parentlink = "Espresso.cfm">
-<cfset pagetitle = "Espresso - Request Details - Send On Hold email">
-<cfinclude template="/AppsRoot/Includes/IntraHeader.cfm">
+<cfset app.addParent("Espresso", "Espresso.cfm") />
+<cfset app.title="Espresso - Request Details - Send On Hold email">
+<cfinclude template="#app.includes#/appsHeader.cfm">
 
 <style>
 	.EmailDiv { width:740px; background-color:#EFC; padding:8px 6px 12px 10px; margin:0 0 0 10px; }
@@ -28,4 +27,4 @@
 	</form>
 </cfoutput>
 
-<cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
+<cfinclude template="#app.includes#/appsFooter.cfm">

@@ -1,11 +1,11 @@
 <!--- This file displays the records of orders submitted by the customers. Orders are displayed into two section one is open orders and another is completed orders. --->
-<cfset pagetitle = "Espresso">
-<cfset adminButtons=ArrayNew(1)>
+<cfset app.title="Espresso">
+<!--- app.adminButtons defined in Application.cfm --->
 <cfset adminButton = structNew()>
 <cfset adminButton.link = "EspressoRecord.cfm">
 <cfset adminButton.label = "View Yearly Records">
-<cfset ArrayAppend(adminButtons, adminButton)>
-<cfinclude template="/AppsRoot/Includes/IntraHeader.cfm">
+<cfset ArrayAppend(app.adminButtons, adminButton)>
+<cfinclude template="#app.includes#/appsHeader.cfm">
 
 <link rel="stylesheet" type="text/css" href="espresso.css" />
 
@@ -33,4 +33,4 @@
 
 </table>
 
-<cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
+<cfinclude template="#app.includes#/appsFooter.cfm">

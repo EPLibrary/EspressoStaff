@@ -1,8 +1,7 @@
 <!--- This file updates the database after status is changed --->
-<cfset parentpage = "Espresso">
-<cfset parentlink = "Espresso.cfm">
-<cfset pagetitle = "Espresso - Request Details">
-<cfinclude template="/AppsRoot/Includes/IntraHeader.cfm">
+<cfset app.addParent("Espresso", "Espresso.cfm") />
+<cfset app.title="Espresso - Request Details">
+<cfinclude template="#app.includes#/appsHeader.cfm">
 
 <!--- Update order status when chqanged in detail page--->
 <cfquery name="EspressoQuery" datasource="ReadWriteSource" dbtype="ODBC">
@@ -14,4 +13,4 @@
 
 <cflocation url="EspressoDetail.cfm?id=#form.Esp#" addtoken="no">
 
-<cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
+<cfinclude template="#app.includes#/appsFooter.cfm">

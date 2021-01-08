@@ -1,6 +1,6 @@
 <!--- This file displays the records of orders submitted by the customers. Orders are displayed into two section one is open orders and another is completed orders. --->
-<cfset pagetitle = "Espresso">
-<cfinclude template="/AppsRoot/Includes/IntraHeader.cfm">
+<cfset app.title="Espresso">
+<cfinclude template="#app.includes#/appsHeader.cfm">
 
 <style type="text/css">
 
@@ -96,4 +96,4 @@
 
 
 
-<cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
+<cfinclude template="#app.includes#/appsFooter.cfm">

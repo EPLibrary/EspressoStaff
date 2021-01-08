@@ -1,9 +1,8 @@
 <!--- This page let the staff to edit the filed if required and also allowed to put their comments in staff comment box. --->
 
-<cfset parentpage = "Espresso">
-<cfset parentlink = "Espresso.cfm">
-<cfset pagetitle = "Espresso - Request Details - Edit">
-<cfinclude template="/AppsRoot/Includes/IntraHeader.cfm">
+<cfset app.addParent("Espresso", "Espresso.cfm") />
+<cfset app.title="Espresso - Request Details - Edit">
+<cfinclude template="#app.includes#/appsHeader.cfm">
 
 <style type="text/css">
 	.Bicycle {
@@ -160,4 +159,4 @@ function checkFileBookBlock() {
     }
 </script>
 
-<cfinclude template="/AppsRoot/Includes/IntraFooter.cfm">
+<cfinclude template="#app.includes#/appsFooter.cfm">
